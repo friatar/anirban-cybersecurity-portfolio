@@ -15,9 +15,7 @@ Currently, I am enhancing my technical expertise while expanding my interpersona
 
 | Project | Description | Tools Used | Link |
 |--------|-------------|-------------|------|
-| 🔐 Secure File Transfer | A Python-based script to securely transfer files over encrypted channels | Python, Sockets, hashlib | [View Repo](#) |
-| 📡 Passive Network Sniffer | Captures and logs packets on a given interface | Scapy, Python | [View Repo](#) |
-| 🔁 Brute Force Login Tester | Educational tool to test login forms securely | Python, Requests | [View Repo](#) |
+| 🔐 Vulnerability Scanner |  A script that scans a given IP/host for common open ports and known banners | Python, Sockets, nmap, banner grabbing | [View Repo](projects/vulnerability-scanner/README.md) |
 
 ---
 
@@ -27,7 +25,6 @@ Currently, I am enhancing my technical expertise while expanding my interpersona
 |---------|-----------|------------|----------|
 | TryHackMe | Mr. Robot | Medium | [Read](writeups/mr_robot.md) |
 | TryHackMe | Pickle Rick | Easy | [Read](writeups/pickle_rick.md) |
-| HackTheBox | Lame | Easy | [Read](writeups/lame.md) |
 
 ---
 
@@ -44,8 +41,7 @@ Currently, I am enhancing my technical expertise while expanding my interpersona
 ## 🏅 Certifications & Achievements
 
 - ✅ [TryHackMe - Complete Beginner Path](#)
-- ✅ [Cisco Networking Basics](#)
-- 🏆 Top 10% in Internal CTF (College Level)
+- ✅ [Cisco Networking](#)
 
 ---
 
