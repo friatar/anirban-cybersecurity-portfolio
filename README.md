@@ -5,8 +5,9 @@
 ---
 
 ## 🔍 About Me
-I'm currently pursuing my degree with a focus on cybersecurity. I enjoy breaking things to understand how they work, solving CTF challenges, and automating stuff with Python.  
-This portfolio contains my personal projects, tools, write-ups, and certifications.
+Cybersecurity Enthusiast | Aspiring Tech Professional | Final year Computer Science Student
+As a final-year Computer Science student with a focus on cybersecurity, I am passionate about securing digital ecosystems and developing innovative solutions to complex challenges.
+Currently, I am enhancing my technical expertise while expanding my interpersonal skills to adapt to dynamic and collaborative professional environments. My goal is to bridge the gap between technology and its secure implementation, ensuring trust in every interaction.
 
 ---
 
@@ -56,7 +57,6 @@ This portfolio contains my personal projects, tools, write-ups, and certificatio
 
 ## 📬 Contact
 
-- 📧 Email: yourname@email.com  
-- 🔗 LinkedIn: [linkedin.com/in/yourprofile](#)  
-- 💻 GitHub: [github.com/AnirbanTarafdar](#)
+- 📧 Email: anirbant05@gmail.com 
+- 🔗 LinkedIn: [linkedin.com/in/anirban-tarafdar](#)  
 
